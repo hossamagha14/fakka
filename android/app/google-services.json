@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "698768301971",
+    "project_id": "fakka-ecada",
+    "storage_bucket": "fakka-ecada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698768301971:android:99bcd0448a16f503259266",
+        "android_client_info": {
+          "package_name": "com.example.fakka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698768301971-7f440uktrc6sd6khh4nr2rgs927an3ru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fakka",
+            "certificate_hash": "47e967a66d0b4d20995a7bfe9d4d8ec69766cd6c"
+          }
+        },
+        {
+          "client_id": "698768301971-4ea1m4ioivdgk1tlfmsrfmmgo9ubqfm3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYr2-S_j9jmmuaOLNkp6emX1iQC9-mbWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698768301971-4ea1m4ioivdgk1tlfmsrfmmgo9ubqfm3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
