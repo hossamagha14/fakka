@@ -17,7 +17,7 @@ class CardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cards'),
+        title: const Text('Virtual Card'),
       ),
       body: BlocConsumer<BottomNavBarCubit, BottomNavBarStates>(
         listener: (context, state) {},
@@ -135,10 +135,27 @@ class CardsScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Lock Card',
-                              style: TextStyle(
-                                  fontSize: 19, fontWeight: FontWeight.w700),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.grey.shade300,
+                                  radius: 23,
+                                  child: const Icon(
+                                    Icons.lock,
+                                    color: Colors.black,
+                                    size: 25,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  'Lock Card',
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ],
                             ),
                             Transform.scale(
                               scale: 0.9,
@@ -269,8 +286,7 @@ class CardsScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                UpdatePinScreen1(),
+                            builder: (context) => UpdatePinScreen1(),
                           ));
                     },
                     child: Card(

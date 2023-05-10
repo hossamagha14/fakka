@@ -5,6 +5,7 @@ import 'package:fakka/View/Reusable/my_button.dart';
 import 'package:fakka/View/Reusable/toasts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import 'loading_screen.dart';
 
@@ -14,12 +15,16 @@ class SelectImageScreen extends StatelessWidget {
   final String userName;
   final String cardHolderName;
   final String cardPassword;
+  final String address;
+  final String nationalId;
   const SelectImageScreen(
       {Key? key,
       required this.email,
       required this.password,
       required this.cardHolderName,
       required this.cardPassword,
+      required this.address,
+      required this.nationalId,
       required this.userName})
       : super(key: key);
 
@@ -30,12 +35,11 @@ class SelectImageScreen extends StatelessWidget {
       body: BlocConsumer<SignUpCubit, SignUpStates>(
         listener: (context, state) {
           if (state is SignUpLoadingState) {
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const LoadingSrceen(),
-                ),
-                (route) => false);
+                ));
           }
         },
         builder: (context, state) {
@@ -67,7 +71,6 @@ class SelectImageScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             myCubit.chooseImage(index);
-                            print(myCubit.imageString);
                           },
                           child: Stack(
                             alignment: AlignmentDirectional.center,
@@ -103,11 +106,15 @@ class SelectImageScreen extends StatelessWidget {
                             myCubit.imageString == null) {
                           errorToast(message: 'Please choose an avatar');
                         } else {
-                          myCubit.createAcount(context,
-                          cardPassword: cardPassword,
+                          myCubit.checkUserAndCreateAccount(context,
+                              cardPassword: cardPassword,
                               email: email,
+                              birthday: DateFormat('dd / MM / y')
+                                  .format(myCubit.birthday!),
+                              address: address,
+                              nationalId: nationalId,
                               cardHolderName: cardHolderName,
-                              name: userName,
+                              username: userName,
                               image: myCubit.imageString!,
                               password: password);
                         }

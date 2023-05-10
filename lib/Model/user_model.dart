@@ -10,7 +10,12 @@ class UserModel {
   String? creditCardNumber;
   String? cardPassword;
   String? expiryDate;
+  String? address;
+  String? nationalId;
+  String? birthday;
   String? cvc;
+  bool? isMale;
+  bool? isVendor;
   double money = 5;
   double recievedMoney = 0;
   double paidMoney = 0;
@@ -22,6 +27,11 @@ class UserModel {
       {required this.name,
       required this.email,
       required this.image,
+      required this.isMale,
+      required this.isVendor,
+      required this.birthday,
+      required this.nationalId,
+      required this.address,
       required this.cardPassword,
       required this.cvc,
       required this.creditCardNumber,
@@ -32,6 +42,11 @@ class UserModel {
     name = json['name'];
     email = json['email'];
     money = json['money'];
+    isVendor = json['isVendor'];
+    birthday = json['birthday'];
+    nationalId = json['nationalId'];
+    address = json['address'];
+    isMale = json['isMale'];
     image = json['image'];
     cardPassword = json['Card password'];
     cvc = json['CVC'];
@@ -53,6 +68,11 @@ class UserModel {
       'email': email,
       'money': money,
       'image': image,
+      'birthday': birthday,
+      'nationalId': nationalId,
+      'address': address,
+      'isVendor': isVendor,
+      'isMale': isMale,
       'Card password': cardPassword,
       'CVC': cvc,
       'Recieved money': recievedMoney,

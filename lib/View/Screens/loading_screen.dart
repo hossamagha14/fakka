@@ -1,5 +1,6 @@
 import 'package:fakka/View%20Model/Sign%20up/sign_up_cubit.dart';
 import 'package:fakka/View%20Model/Sign%20up/sign_up_states.dart';
+import 'package:fakka/View/Screens/sign_in.dart';
 import 'package:fakka/View/Screens/success.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,9 +23,15 @@ class LoadingSrceen extends StatelessWidget {
                   builder: (context) => const SuccessScreen(),
                 ),
                 (route) => false);
-          }
-          else if(state is SignUpFailState){
+          } else if (state is SignUpFailState) {
             Navigator.pop(context);
+          } else if (state is SignUpExistsState) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignInScreen(),
+                ),
+                (route) => false);
           }
         },
         builder: (context, state) {

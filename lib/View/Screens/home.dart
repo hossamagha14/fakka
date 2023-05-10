@@ -5,6 +5,7 @@ import 'package:fakka/View/Reusable/colors_paddings.dart';
 import 'package:fakka/View/Reusable/payment_info.dart';
 import 'package:fakka/View/Screens/bills.dart';
 import 'package:fakka/View/Screens/notifications.dart';
+import 'package:fakka/View/Screens/payment_methos.dart';
 import 'package:fakka/View/Screens/profile.dart';
 import 'package:fakka/View/Screens/recharge.dart';
 import 'package:fakka/View/Screens/send_money.dart';
@@ -120,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.66,
+                        height: MediaQuery.of(context).size.height * 0.715,
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: Column(
@@ -155,14 +156,39 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     CircleButton(
                                       function: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SendMoneyScreen(
-                                                type: 1,
-                                              ),
-                                            ));
+                                        showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          elevation: 10,
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (context) => Wrap(
+                                            children: [
+                                              Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.35,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  decoration: const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      20))),
+                                                  child: PaymentMethodsScreen(
+                                                    function: () {
+                                                      myCubit
+                                                          .scanQrCode(context);
+                                                    },
+                                                  )),
+                                            ],
+                                          ),
+                                        );
                                       },
                                       icon: Icon(
                                         Icons.arrow_forward,

@@ -14,7 +14,7 @@ class RechargeScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.2,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: const Image(
                     image: AssetImage('assets/images/e.png'),
@@ -34,7 +34,7 @@ class RechargeScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.fromLTRB(2,10,2,10),
             child: Divider(
               height: 1,
               thickness: 1,
@@ -46,7 +46,7 @@ class RechargeScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.2,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: const Image(
                     image: AssetImage('assets/images/or.png'),
@@ -66,7 +66,7 @@ class RechargeScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.fromLTRB(2,10,2,10),
             child: Divider(
               height: 1,
               thickness: 1,
@@ -78,11 +78,10 @@ class RechargeScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.2,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: Image(
-                    image: const AssetImage('assets/images/voda.png'),
-                    width: MediaQuery.of(context).size.width * 0.3,
+                  child: const Image(
+                    image: AssetImage('assets/images/voda.png'),
                   ),
                 ),
                 const SizedBox(
@@ -99,7 +98,7 @@ class RechargeScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(10.0),
+           padding: EdgeInsets.fromLTRB(2,10,2,10),
             child: Divider(
               height: 1,
               thickness: 1,
@@ -111,18 +110,19 @@ class RechargeScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.025,),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
                   height: MediaQuery.of(context).size.height * 0.1,
-                  child: Image(
-                    image: const AssetImage('assets/images/we.png'),
-                    width: MediaQuery.of(context).size.width * 0.2,
+                  child: const Image(
+                    image: AssetImage('assets/images/we.png'),
                   ),
                 ),
-                const SizedBox(
-                  width: 30,
+                 SizedBox(
+                  width: 30+MediaQuery.of(context).size.width * 0.025,
                 ),
                 const Text(
-                  'Etisalat misr',
+                  'We misr',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,

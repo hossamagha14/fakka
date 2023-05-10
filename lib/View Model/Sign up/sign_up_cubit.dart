@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fakka/View%20Model/Sign%20up/sign_up_states.dart';
+import 'package:fakka/View/Reusable/toasts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Model/user_model.dart';
@@ -14,6 +15,9 @@ class SignUpCubit extends Cubit<SignUpStates> {
   bool confirmPassSecure = true;
   bool cardPassSecure = true;
   int? imageIndex;
+  bool? isMale;
+  bool? isVendor;
+  DateTime? birthday;
   DateTime date = DateTime.now();
   int rnd1 = Random().nextInt(100) +
       Random().nextInt(100) +
@@ -68,14 +72,18 @@ class SignUpCubit extends Cubit<SignUpStates> {
       required String password,
       required String name,
       required String cardHolderName,
+      required String address,
+      required String birthday,
+      required String nationalId,
       required String cardPassword,
       required String image}) {
-    emit(SignUpLoadingState());
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      print(value.user);
       createUser(context,
+          address: address,
+          birthday: birthday,
+          nationalId: nationalId,
           uid: value.user!.uid,
           cardPassword: cardPassword,
           name: name,
@@ -83,7 +91,6 @@ class SignUpCubit extends Cubit<SignUpStates> {
           image: image,
           cardHolderName: cardHolderName);
     }).catchError((onError) {
-      print(onError);
       emit(SignUpFailState());
     });
   }
@@ -92,6 +99,9 @@ class SignUpCubit extends Cubit<SignUpStates> {
       {required String uid,
       required String name,
       required String email,
+      required String address,
+      required String birthday,
+      required String nationalId,
       required String cardHolderName,
       required String cardPassword,
       required String image}) {
@@ -99,6 +109,11 @@ class SignUpCubit extends Cubit<SignUpStates> {
         name: name,
         email: email,
         image: image,
+        isMale: isMale,
+        isVendor: isVendor,
+        address: address,
+        birthday: birthday,
+        nationalId: nationalId,
         cvc: '$cvc1$cvc2$cvc3',
         creditCardNumber: '$rnd1   $rnd21$rnd22   $rnd31$rnd32   $rnd41$rnd42',
         cardHolderName: cardHolderName,
@@ -111,7 +126,6 @@ class SignUpCubit extends Cubit<SignUpStates> {
         .then((value) {
       createUserName(uid: uid, userName: name);
     }).catchError((onError) {
-      print(onError);
       emit(SignUpFailState());
     });
   }
@@ -123,21 +137,77 @@ class SignUpCubit extends Cubit<SignUpStates> {
         .set({'uid': uid}).then((value) {
       emit(SignUpSuccessState());
     }).catchError((onError) {
-      print(onError);
       emit(SignUpFailState());
     });
   }
 
-  checkUserName(String username) async {
+  checkUserAndCreateAccount(context,
+      {required String username,
+      required String email,
+      required String password,
+      required String cardHolderName,
+      required String address,
+      required String birthday,
+      required String nationalId,
+      required String cardPassword,
+      required String image}) async {
+    emit(SignUpLoadingState());
     final userCollection = FirebaseFirestore.instance.collection('Users');
-
-    bool usernameExists = false;
-
+    bool userNameExists = false;
+    bool emailExists = false;
     // Check if the username already exists
     QuerySnapshot usernameSnapshot =
-        await userCollection.where('name', isEqualTo: 'hossamagha20').get();
+        await userCollection.where('name', isEqualTo: username).get();
     if (usernameSnapshot.docs.isNotEmpty) {
-      usernameExists = true;
+      userNameExists = true;
     }
+    QuerySnapshot emailSnapshot =
+        await userCollection.where('email', isEqualTo: email).get();
+    if (emailSnapshot.docs.isNotEmpty) {
+      emailExists = true;
+    }
+    if (userNameExists == false && emailExists == false) {
+      createAcount(context,
+          name: username,
+          password: password,
+          birthday: birthday,
+          nationalId: nationalId,
+          address: address,
+          email: email,
+          cardHolderName: cardHolderName,
+          cardPassword: cardPassword,
+          image: image);
+    } else if (userNameExists == true) {
+      errorToast(message: 'A user with this username address already exists');
+      emit(SignUpExistsState());
+    } else if (emailExists == true) {
+      errorToast(message: 'A user with this email address already exists');
+      emit(SignUpExistsState());
+    }
+  }
+
+  pickBirthDay(value) {
+    birthday = value;
+    emit(SignUpChooseBirthDayState());
+  }
+
+  chooseMale() {
+    isMale = true;
+    emit(SignUpChooseGenderState());
+  }
+
+  chooseFemale() {
+    isMale = false;
+    emit(SignUpChooseGenderState());
+  }
+
+  chooseVendor() {
+    isVendor = true;
+    emit(SignUpChooseStatusState());
+  }
+
+  chooseCustomer() {
+    isVendor = false;
+    emit(SignUpChooseStatusState());
   }
 }

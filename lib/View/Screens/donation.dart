@@ -14,7 +14,10 @@ class DonationScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.05,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: const Image(
                     image: AssetImage('assets/images/heart.png'),
@@ -30,7 +33,7 @@ class DonationScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -38,7 +41,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.fromLTRB(2, 10, 2, 10),
             child: Divider(
               height: 1,
               thickness: 1,
@@ -50,7 +53,10 @@ class DonationScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.05,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: const Image(
                     image: AssetImage('assets/images/orman.png'),
@@ -66,7 +72,7 @@ class DonationScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -74,7 +80,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.fromLTRB(2, 10, 2, 10),
             child: Divider(
               height: 1,
               thickness: 1,
@@ -86,7 +92,10 @@ class DonationScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.05,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: const Image(
                     image: AssetImage('assets/images/resala.png'),
@@ -102,7 +111,7 @@ class DonationScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -110,7 +119,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.fromLTRB(2, 10, 2, 10),
             child: Divider(
               height: 1,
               thickness: 1,
@@ -122,7 +131,10 @@ class DonationScreen extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.05,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.15,
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Image(
                     image: const AssetImage('assets/images/57357.png'),
@@ -139,7 +151,7 @@ class DonationScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400),
                   ),
                 ),

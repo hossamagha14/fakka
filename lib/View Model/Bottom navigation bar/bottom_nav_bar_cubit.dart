@@ -6,8 +6,10 @@ import 'package:fakka/View%20Model/Bottom%20navigation%20bar/bottom_nav_bar_stat
 import 'package:fakka/View/Reusable/colors_paddings.dart';
 import 'package:fakka/View/Screens/cards.dart';
 import 'package:fakka/View/Screens/home.dart';
+import 'package:fakka/View/Screens/send_money.dart';
 import 'package:fakka/View/Screens/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import '../../Model/notifications_model.dart';
@@ -25,6 +27,7 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   UserNameModel? userNameModel;
   PaymentHistoryModel? paymentHistoryModel;
   String date = '2';
+  String? qrCodeUserName;
   List<PaymentByDateModel> paymentByDateModelList = [];
   PaymentByDateModel? paymentByDateModel;
   List<Widget> screens = [
@@ -236,13 +239,21 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   }
 
   openNotification(int index) {
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .update({'notifications.$index.opened': FieldValue.increment(1)}).then((value) {
+    FirebaseFirestore.instance.collection('Users').doc(uid).update(
+        {'notifications.$index.opened': FieldValue.increment(1)}).then((value) {
       emit(BottomNavBarNotificationUpdateSuccessState());
     }).catchError((onError) {
       emit(BottomNavBarNotificationUpdateFailState());
     });
+  }
+
+  scanQrCode(context) async {
+    qrCodeUserName = await FlutterBarcodeScanner.scanBarcode(
+        '#5E41A5', 'Cancel', true, ScanMode.QR);
+    if(qrCodeUserName != null){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SendMoneyScreen(type: 4,userName: qrCodeUserName,),));
+    }else if(qrCodeUserName == '-1'){
+      Navigator.pop(context);
+    }
   }
 }

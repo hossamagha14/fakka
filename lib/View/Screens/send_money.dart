@@ -31,6 +31,8 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
     if (widget.type == 3) {
       money.text = widget.requestedMoney!;
       userName.text = widget.userName!;
+    } else if (widget.type == 4) {
+      userName.text = widget.userName!;
     }
   }
 
@@ -168,7 +170,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                       message:
                                           'Please put both user name and the amount of money to be sent');
                                 } else {
-                                  if (widget.type == 1 || widget.type == 3) {
+                                  if (widget.type == 1 || widget.type == 3 || widget.type==4) {
                                     if (myCubit.userModel!.money +
                                             myCubit.userModel!.recievedMoney +
                                             -myCubit.userModel!.paidMoney <
