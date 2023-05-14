@@ -15,11 +15,16 @@ class SkelatonScreen extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
               child: SkeletonAvatar(
                   style: SkeletonAvatarStyle(
+                      shape: BoxShape.circle, width: 40, height: 40))),
+          Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
+              child: SkeletonAvatar(
+                  style: SkeletonAvatarStyle(
                       shape: BoxShape.circle, width: 40, height: 40)))
         ],
       ),
       body: Padding(
-          padding: horizontalPadding(context,top: 0,bottom: 0),
+          padding: horizontalPadding(context, top: 0, bottom: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -206,8 +211,7 @@ class SkelatonScreen extends StatelessWidget {
                               const Spacer(),
                               const SkeletonAvatar(
                                   style: SkeletonAvatarStyle(
-                                      width: 60,
-                                      height: 30))
+                                      width: 60, height: 30))
                             ],
                           ));
                     },

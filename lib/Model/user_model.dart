@@ -19,6 +19,7 @@ class UserModel {
   double money = 5;
   double recievedMoney = 0;
   double paidMoney = 0;
+  int points = 0;
   bool cardIsLocked = false;
   List<PaymentHistoryModel> payments = [];
   List<NotificationsModel> notifications = [];
@@ -42,6 +43,7 @@ class UserModel {
     name = json['name'];
     email = json['email'];
     money = json['money'];
+    points = json['points'];
     isVendor = json['isVendor'];
     birthday = json['birthday'];
     nationalId = json['nationalId'];
@@ -68,6 +70,7 @@ class UserModel {
       'email': email,
       'money': money,
       'image': image,
+      'points': points,
       'birthday': birthday,
       'nationalId': nationalId,
       'address': address,

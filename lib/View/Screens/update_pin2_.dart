@@ -79,7 +79,7 @@ class UpdatePinScreen2 extends StatelessWidget {
                   ),
                   showCursor: false,
                   onCompleted: (value) {
-                    myCubit.updatePin(passwordController.text);
+                    myCubit.updatePin(context,passwordController.text);
                   },
                   controller: passwordController,
                   obscureText: true,

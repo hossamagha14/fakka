@@ -238,7 +238,8 @@ class CardsScreen extends StatelessWidget {
                                                       child: MyButton(
                                                           title: 'Lock my card',
                                                           function: () {
-                                                            myCubit.lockCard();
+                                                            myCubit.lockCard(
+                                                                context);
                                                             Navigator.pop(
                                                                 context);
                                                           }),
@@ -267,7 +268,7 @@ class CardsScreen extends StatelessWidget {
                                       ),
                                     );
                                   } else {
-                                    myCubit.lockCard();
+                                    myCubit.lockCard(context);
                                   }
                                 },
                                 activeColor: mainColor,

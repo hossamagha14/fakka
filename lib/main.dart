@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => BottomNavBarCubit()..getUser(),
+          create: (context) => BottomNavBarCubit()..getUser(context),
         ),
         BlocProvider(
           create: (context) => SignUpCubit(),

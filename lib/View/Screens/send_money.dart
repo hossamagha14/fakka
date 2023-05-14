@@ -170,7 +170,9 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                       message:
                                           'Please put both user name and the amount of money to be sent');
                                 } else {
-                                  if (widget.type == 1 || widget.type == 3 || widget.type==4) {
+                                  if (widget.type == 1 ||
+                                      widget.type == 3 ||
+                                      widget.type == 4) {
                                     if (myCubit.userModel!.money +
                                             myCubit.userModel!.recievedMoney +
                                             -myCubit.userModel!.paidMoney <
@@ -187,6 +189,11 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                       errorToast(
                                           message:
                                               'You can only send 0.5EGP and its multiplys');
+                                    } else if (myCubit.userModel!.name ==
+                                        userName.text) {
+                                      errorToast(
+                                          message:
+                                              'You can\'t send money to yourself :)');
                                     } else {
                                       myCubit.sendMoney(context,
                                           recievedMoney:
@@ -206,6 +213,11 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                       errorToast(
                                           message:
                                               '0.5 EGP is the least amount to request');
+                                    } else if (myCubit.userModel!.name ==
+                                        userName.text) {
+                                      errorToast(
+                                          message:
+                                              'You can\'t request money from yourself :)');
                                     } else {
                                       myCubit.requestMoney(
                                           reciever: userName.text,

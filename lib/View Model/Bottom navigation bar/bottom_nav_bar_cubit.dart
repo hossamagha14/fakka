@@ -51,45 +51,59 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
     emit(BottomNavBarShowCardNumbertate());
   }
 
-  updatePin(String newPin) {
+  updatePin(context, String newPin) {
     FirebaseFirestore.instance
         .collection('Users')
         .doc(uid)
         .update({'Card password': newPin}).then((value) {
       emit(BottomNavBarChangePinSuccessState());
-      getUser();
+      getUser(context);
     }).catchError((onError) {
       emit(BottomNavBarChangePinFailState());
     });
   }
 
-  lockCard() {
+  lockCard(context) {
     FirebaseFirestore.instance
         .collection('Users')
         .doc(uid)
         .update({'Locked': !userModel!.cardIsLocked}).then((value) {
-      getUser();
+      getUser(context);
     }).catchError((onError) {
       emit(BottomNavBarLockCardFailState());
     });
   }
 
-  getUser() {
+  getUser(context) {
     date = '';
+
     paymentByDateModelList = [];
     FirebaseFirestore.instance.collection('Users').doc(uid).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
+      print(DateFormat('dd / MM').format(DateTime.now()));
+      print(userModel!.birthday!.substring(0,7));
       for (int i = 0; i < userModel!.payments.length; i++) {
         if (date != userModel!.payments[i].date) {
           date = userModel!.payments[i].date!;
           paymentByDateModel = PaymentByDateModel(date: date);
           paymentByDateModel!.paymentsHistory.add(userModel!.payments[i]);
           paymentByDateModelList.add(paymentByDateModel!);
-          print('y');
         } else {
           paymentByDateModel!.paymentsHistory.add(userModel!.payments[i]);
-          print('x');
         }
+      }
+      if (userModel!.birthday!.substring(0, 7) ==
+          DateFormat('dd / MM').format(DateTime.now())) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              color: Colors.white,
+              child: const Text('your birthday'),
+            ),
+          ),
+        );
       }
       emit(BottomNavBarGetSuccessState());
     }).catchError((onError) {
@@ -177,7 +191,7 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
         ])
       },
     ).then((value) {
-      getUser();
+      getUser(context);
     }).catchError((onError) {
       emit(BottomNavBarSendMoneyFailState());
     });
@@ -250,9 +264,16 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   scanQrCode(context) async {
     qrCodeUserName = await FlutterBarcodeScanner.scanBarcode(
         '#5E41A5', 'Cancel', true, ScanMode.QR);
-    if(qrCodeUserName != null){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SendMoneyScreen(type: 4,userName: qrCodeUserName,),));
-    }else if(qrCodeUserName == '-1'){
+    if (qrCodeUserName != null && qrCodeUserName != '-1') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SendMoneyScreen(
+              type: 4,
+              userName: qrCodeUserName,
+            ),
+          ));
+    } else if (qrCodeUserName == '-1') {
       Navigator.pop(context);
     }
   }

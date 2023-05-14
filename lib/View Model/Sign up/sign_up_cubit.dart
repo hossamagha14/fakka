@@ -178,7 +178,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
           cardPassword: cardPassword,
           image: image);
     } else if (userNameExists == true) {
-      errorToast(message: 'A user with this username address already exists');
+      errorToast(message: 'A user with this username already exists');
       emit(SignUpExistsState());
     } else if (emailExists == true) {
       errorToast(message: 'A user with this email address already exists');
