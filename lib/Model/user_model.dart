@@ -17,6 +17,7 @@ class UserModel {
   bool? isMale;
   bool? isVendor;
   double money = 5;
+  double moneySpentThisMonth = 0;
   double recievedMoney = 0;
   double paidMoney = 0;
   int points = 0;
@@ -44,6 +45,7 @@ class UserModel {
     email = json['email'];
     money = json['money'];
     points = json['points'];
+    moneySpentThisMonth = json['Money spent this month'];
     isVendor = json['isVendor'];
     birthday = json['birthday'];
     nationalId = json['nationalId'];
@@ -71,6 +73,7 @@ class UserModel {
       'money': money,
       'image': image,
       'points': points,
+      'Money spent this month': moneySpentThisMonth,
       'birthday': birthday,
       'nationalId': nationalId,
       'address': address,

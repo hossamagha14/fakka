@@ -3,6 +3,7 @@ import 'package:fakka/Model/payment_by_date_model.dart';
 import 'package:fakka/Model/payment_history_model.dart';
 import 'package:fakka/Model/user_name_model.dart';
 import 'package:fakka/View%20Model/Bottom%20navigation%20bar/bottom_nav_bar_states.dart';
+import 'package:fakka/View%20Model/database/cache_helpher.dart';
 import 'package:fakka/View/Reusable/colors_paddings.dart';
 import 'package:fakka/View/Screens/cards.dart';
 import 'package:fakka/View/Screens/home.dart';
@@ -12,8 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import '../../Model/notifications_model.dart';
 import '../../Model/user_model.dart';
+import '../../View/Reusable/my_button.dart';
 
 class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   BottomNavBarCubit() : super(BottomNavBarIntialState());
@@ -75,13 +78,11 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   }
 
   getUser(context) {
+    emit(BottomNavBarLoadingState());
     date = '';
-
     paymentByDateModelList = [];
     FirebaseFirestore.instance.collection('Users').doc(uid).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
-      print(DateFormat('dd / MM').format(DateTime.now()));
-      print(userModel!.birthday!.substring(0,7));
       for (int i = 0; i < userModel!.payments.length; i++) {
         if (date != userModel!.payments[i].date) {
           date = userModel!.payments[i].date!;
@@ -92,18 +93,100 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
           paymentByDateModel!.paymentsHistory.add(userModel!.payments[i]);
         }
       }
+      if (userModel!.moneySpentThisMonth == 5) {
+        if (targetOpened == false) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              content: Container(
+                height: MediaQuery.of(context).size.height * 0.62,
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Lottie.asset('assets/animation/target.json'),
+                    RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                            style: TextStyle(fontSize: 18, color: mainColor),
+                            children: [
+                              TextSpan(
+                                  text: 'Congratulations ${userModel!.name}',
+                                  style: TextStyle(
+                                      fontSize: 18.5,
+                                      color: mainColor,
+                                      fontWeight: FontWeight.w700)),
+                              const TextSpan(
+                                  text:
+                                      ', You have achieved your target and you have been rewarded 1000 points that you can use for discounts or cash back.'),
+                            ])),
+                    MyButton(
+                        title: 'Congratulations!',
+                        function: () {
+                          Navigator.pop(context);
+                          CacheHelper.saveData(
+                              key: 'targetOpened', value: true);
+                          targetOpened =
+                              CacheHelper.getData(key: 'targetOpened');
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      }
       if (userModel!.birthday!.substring(0, 7) ==
           DateFormat('dd / MM').format(DateTime.now())) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: Container(
-              height: MediaQuery.of(context).size.height * 0.4,
-              color: Colors.white,
-              child: const Text('your birthday'),
+        if (birthDayOpened == false) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              content: Container(
+                height: MediaQuery.of(context).size.height * 0.62,
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Lottie.asset('assets/animation/birthday.json'),
+                    RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                            style: TextStyle(fontSize: 18, color: mainColor),
+                            children: [
+                              const TextSpan(
+                                text: 'Today is your birthday ',
+                              ),
+                              TextSpan(
+                                  text: '${userModel!.name}',
+                                  style: TextStyle(
+                                      fontSize: 18.5,
+                                      color: mainColor,
+                                      fontWeight: FontWeight.w700)),
+                              const TextSpan(
+                                  text: ', We wish you the happiest birthday.'),
+                            ])),
+                    MyButton(
+                        title: 'Happy Birthday',
+                        function: () {
+                          Navigator.pop(context);
+                          CacheHelper.saveData(
+                              key: 'birthDayOpened', value: true);
+                          birthDayOpened =
+                              CacheHelper.getData(key: 'birthDayOpened');
+                        }),
+                  ],
+                ),
+              ),
             ),
-          ),
-        );
+          );
+        }
+      } else {
+        CacheHelper.saveData(key: 'birthDayOpened', value: false);
       }
       emit(BottomNavBarGetSuccessState());
     }).catchError((onError) {
@@ -179,6 +262,8 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
     FirebaseFirestore.instance.collection('Users').doc(uid).update(
       {
         'Paid money': paidMoney,
+        'Money spent this month':
+            FieldValue.increment(moneyUsedInTheTransaction),
         'payments': FieldValue.arrayUnion([
           PaymentHistoryModel(
                   name: recieverUsername,

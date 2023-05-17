@@ -10,3 +10,6 @@ EdgeInsetsGeometry horizontalPadding(context,
   return EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, top,
       MediaQuery.of(context).size.width * 0.05, bottom);
 }
+
+bool birthDayOpened = CacheHelper.getData(key: 'birthDayOpened') ?? false;
+bool targetOpened= CacheHelper.getData(key: 'targetOpened') ?? false;

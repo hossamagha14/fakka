@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         BottomNavBarCubit myCubit = BottomNavBarCubit.get(context);
-        return myCubit.userModel == null
+        return myCubit.userModel == null || state is BottomNavBarLoadingState
             ? const SkelatonScreen()
             : Scaffold(
                 appBar: AppBar(
@@ -121,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.715,
+                        height: MediaQuery.of(context).size.height * 0.675,
                         child: RefreshIndicator(
                           color: mainColor,
                           onRefresh: () async {
