@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BillsScreen extends StatelessWidget {
-  const BillsScreen({Key? key}) : super(key: key);
+  final eleBill;
+  final waterBill;
+  const BillsScreen({Key? key,required this.eleBill,required this.waterBill}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +12,7 @@ class BillsScreen extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () {},
+            onTap: eleBill,
             child: Row(
               children: [
                 SizedBox(
@@ -42,7 +44,7 @@ class BillsScreen extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: waterBill,
             child: Row(
               children: [
                 SizedBox(

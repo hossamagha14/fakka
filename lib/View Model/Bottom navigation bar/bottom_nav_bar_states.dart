@@ -35,3 +35,5 @@ class BottomNavBarNotificationFailState extends BottomNavBarStates {}
 class BottomNavBarNotificationUpdateSuccessState extends BottomNavBarStates {}
 
 class BottomNavBarNotificationUpdateFailState extends BottomNavBarStates {}
+
+class BottomNavBarShowCardPasswordState extends BottomNavBarStates {}

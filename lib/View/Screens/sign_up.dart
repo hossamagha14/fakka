@@ -259,6 +259,10 @@ class SignUpScreen extends StatelessWidget {
                           } else if (passwordController.text !=
                               confirmPasswordController.text) {
                             errorToast(message: 'Password doesn\'t match');
+                          } else if (passwordController.text.length < 6) {
+                            errorToast(
+                                message:
+                                    'Password can\'t be less than 6 characters');
                           } else {
                             Navigator.push(
                                 context,

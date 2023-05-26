@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 class DonationScreen extends StatelessWidget {
-  const DonationScreen({Key? key}) : super(key: key);
+  final heartFunction;
+  final darFunction;
+  final resalaFunction;
+  final cancerFunction;
+  const DonationScreen(
+      {Key? key,
+      required this.heartFunction,
+      required this.darFunction,
+      required this.resalaFunction,
+      required this.cancerFunction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +20,7 @@ class DonationScreen extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            onTap: () {},
+            onTap: heartFunction,
             child: Row(
               children: [
                 SizedBox(
@@ -49,7 +59,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: darFunction,
             child: Row(
               children: [
                 SizedBox(
@@ -88,7 +98,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: resalaFunction,
             child: Row(
               children: [
                 SizedBox(
@@ -127,7 +137,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: cancerFunction,
             child: Row(
               children: [
                 SizedBox(

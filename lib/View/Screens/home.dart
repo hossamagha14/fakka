@@ -3,6 +3,7 @@ import 'package:fakka/View%20Model/Bottom%20navigation%20bar/bottom_nav_bar_stat
 import 'package:fakka/View/Reusable/circle_button.dart';
 import 'package:fakka/View/Reusable/colors_paddings.dart';
 import 'package:fakka/View/Reusable/payment_info.dart';
+import 'package:fakka/View/Screens/add_money.dart';
 import 'package:fakka/View/Screens/bills.dart';
 import 'package:fakka/View/Screens/notifications.dart';
 import 'package:fakka/View/Screens/payment_methos.dart';
@@ -141,14 +142,62 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       CircleButton(
                                         function: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const SendMoneyScreen(
-                                                  type: 2,
+                                          showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            elevation: 10,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) => Wrap(
+                                              children: [
+                                                Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.6,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  decoration: const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      20))),
+                                                  child: AddMoney(
+                                                    requestMoneyFunction: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const SendMoneyScreen(
+                                                              type: 2,
+                                                            ),
+                                                          ));
+                                                    },
+                                                    etisalatFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.etisalat.flous&hl=en&gl=US');
+                                                    },
+                                                    orangeFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.orange.eg.money&hl=en&gl=US');
+                                                    },
+                                                    vodafoneFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.emeint.android.myservices&hl=en&gl=US');
+                                                    },
+                                                    weFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.TE.WEWallet&hl=en&gl=US');
+                                                    },
+                                                  ),
                                                 ),
-                                              ));
+                                              ],
+                                            ),
+                                          );
                                         },
                                         icon: Icon(
                                           Icons.add,
@@ -239,7 +288,16 @@ class HomeScreen extends StatelessWidget {
                                                                 topRight: Radius
                                                                     .circular(
                                                                         20))),
-                                                    child: const BillsScreen()),
+                                                    child: BillsScreen(
+                                                      eleBill: () {
+                                                        myCubit.launch(
+                                                            'https://ncedc.gov.eg/AhliPayment');
+                                                      },
+                                                      waterBill: () {
+                                                        myCubit.launch(
+                                                            'https://www.hcww.com.eg/bill-payment/');
+                                                      },
+                                                    )),
                                               ],
                                             ),
                                           );
@@ -266,7 +324,10 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       CircleButton(
                                         color: secondaryColor,
-                                        function: () {},
+                                        function: () {
+                                          myCubit.launch(
+                                              'https://play.google.com/store/apps/details?id=com.axismarkets.thndr&hl=en&gl=US');
+                                        },
                                         icon: const Image(
                                             image: AssetImage(
                                                 'assets/images/thndr.png')),
@@ -283,27 +344,41 @@ class HomeScreen extends StatelessWidget {
                                             builder: (context) => Wrap(
                                               children: [
                                                 Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.6,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    decoration: const BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        20))),
-                                                    child:
-                                                        const RechargeScreen()),
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.6,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  decoration: const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      20))),
+                                                  child: RechargeScreen(
+                                                    etisalatFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.etisalat&hl=en&gl=US');
+                                                    },
+                                                    orangeFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.orange.mobinilandme&hl=en&gl=US');
+                                                    },
+                                                    vodafoneFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.emeint.android.myservices&hl=en&gl=US');
+                                                    },
+                                                    weFunction: () {
+                                                      myCubit.launch(
+                                                          'https://play.google.com/store/apps/details?id=com.ucare.we&hl=en&gl=US');
+                                                    },
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           );
@@ -348,8 +423,24 @@ class HomeScreen extends StatelessWidget {
                                                                 topRight: Radius
                                                                     .circular(
                                                                         20))),
-                                                    child:
-                                                        const DonationScreen()),
+                                                    child: DonationScreen(
+                                                      heartFunction: () {
+                                                        myCubit.launch(
+                                                            'https://www.myf-egypt.org/donation/?utm_source=google&utm_medium=cpc&utm_campaign=Ebranded&gad=1&gclid=EAIaIQobChMI4envsrmT_wIVCa13Ch14-wvTEAAYASAAEgKhXPD_BwE');
+                                                      },
+                                                      darFunction: () {
+                                                        myCubit.launch(
+                                                            'https://dar-alorman.com/donate?gclid=EAIaIQobChMIhpDpo7qT_wIV54JoCR0vQAgEEAAYASAAEgKMB_D_BwE');
+                                                      },
+                                                      cancerFunction: () {
+                                                        myCubit.launch(
+                                                            'https://give.57357.org');
+                                                      },
+                                                      resalaFunction: () {
+                                                        myCubit.launch(
+                                                            'https://resala.org/donation-main/');
+                                                      },
+                                                    )),
                                               ],
                                             ),
                                           );

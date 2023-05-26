@@ -9,11 +9,13 @@ import 'package:fakka/View/Screens/cards.dart';
 import 'package:fakka/View/Screens/home.dart';
 import 'package:fakka/View/Screens/send_money.dart';
 import 'package:fakka/View/Screens/settings.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../Model/notifications_model.dart';
 import '../../Model/user_model.dart';
 import '../../View/Reusable/my_button.dart';
@@ -33,6 +35,9 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   String? qrCodeUserName;
   List<PaymentByDateModel> paymentByDateModelList = [];
   PaymentByDateModel? paymentByDateModel;
+  bool pass = true;
+  bool newpass = true;
+  bool confirmpass = true;
   List<Widget> screens = [
     const HomeScreen(),
     const CardsScreen(),
@@ -44,6 +49,28 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
     emit(BottomNavBarChangePageState());
   }
 
+  Future<void> launch(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw "can't launch the Url";
+    }
+  }
+
+  showCardPassword() {
+    pass = !pass;
+    emit(BottomNavBarShowCardPasswordState());
+  }
+
+  showCardNewPassword() {
+    newpass = !newpass;
+    emit(BottomNavBarShowCardPasswordState());
+  }
+
+  showCardConfirmPassword() {
+    confirmpass = !confirmpass;
+    emit(BottomNavBarShowCardPasswordState());
+  }
+
   showMyCVC() {
     showCVC = !showCVC;
     emit(BottomNavBarShowCVCState());
@@ -52,6 +79,55 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   showMyCardNumber() {
     showCardNumber = !showCardNumber;
     emit(BottomNavBarShowCardNumbertate());
+  }
+
+  targetAchieved(context) {
+    FirebaseFirestore.instance.collection('Users').doc(uid).update({
+      "Money spent this month": 0.0,
+      'points': userModel!.points + 1000
+    }).then((value) {
+      emit(BottomNavBarNotificationUpdateSuccessState());
+    }).catchError((onError) {
+      emit(BottomNavBarNotificationUpdateFailState());
+    });
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        content: Container(
+          height: MediaQuery.of(context).size.height * 0.62,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Lottie.asset('assets/animation/target.json'),
+              RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                      style: TextStyle(fontSize: 18, color: mainColor),
+                      children: [
+                        TextSpan(
+                            text: 'Congratulations ${userModel!.name}',
+                            style: TextStyle(
+                                fontSize: 18.5,
+                                color: mainColor,
+                                fontWeight: FontWeight.w700)),
+                        const TextSpan(
+                            text:
+                                ', You have achieved your target and you have been rewarded 1000 points that you can use for discounts or cash back.'),
+                      ])),
+              MyButton(
+                  title: 'Congratulations!',
+                  function: () {
+                    Navigator.pop(context);
+                    CacheHelper.saveData(key: 'targetOpened', value: true);
+                    targetOpened = CacheHelper.getData(key: 'targetOpened');
+                  }),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   updatePin(context, String newPin) {
@@ -93,50 +169,8 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
           paymentByDateModel!.paymentsHistory.add(userModel!.payments[i]);
         }
       }
-      if (userModel!.moneySpentThisMonth == 5) {
-        if (targetOpened == false) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              content: Container(
-                height: MediaQuery.of(context).size.height * 0.62,
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Lottie.asset('assets/animation/target.json'),
-                    RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                            style: TextStyle(fontSize: 18, color: mainColor),
-                            children: [
-                              TextSpan(
-                                  text: 'Congratulations ${userModel!.name}',
-                                  style: TextStyle(
-                                      fontSize: 18.5,
-                                      color: mainColor,
-                                      fontWeight: FontWeight.w700)),
-                              const TextSpan(
-                                  text:
-                                      ', You have achieved your target and you have been rewarded 1000 points that you can use for discounts or cash back.'),
-                            ])),
-                    MyButton(
-                        title: 'Congratulations!',
-                        function: () {
-                          Navigator.pop(context);
-                          CacheHelper.saveData(
-                              key: 'targetOpened', value: true);
-                          targetOpened =
-                              CacheHelper.getData(key: 'targetOpened');
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
+      if (userModel!.moneySpentThisMonth >= 1) {
+        targetAchieved(context);
       }
       if (userModel!.birthday!.substring(0, 7) ==
           DateFormat('dd / MM').format(DateTime.now())) {
@@ -361,5 +395,24 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
     } else if (qrCodeUserName == '-1') {
       Navigator.pop(context);
     }
+  }
+
+  updatePassword(String password) {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .update({'password': password}).then((value) {
+      emit(BottomNavBarNotificationUpdateSuccessState());
+    }).catchError((onError) {
+      emit(BottomNavBarNotificationUpdateFailState());
+    });
+  }
+
+  updatePasswordData(String password) {
+    FirebaseAuth.instance.currentUser!.updatePassword(password).then((value) {
+      emit(BottomNavBarNotificationUpdateSuccessState());
+    }).catchError((onError) {
+      emit(BottomNavBarNotificationUpdateFailState());
+    });
   }
 }

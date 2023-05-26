@@ -83,6 +83,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
       createUser(context,
           address: address,
           birthday: birthday,
+          password: password,
           nationalId: nationalId,
           uid: value.user!.uid,
           cardPassword: cardPassword,
@@ -104,8 +105,10 @@ class SignUpCubit extends Cubit<SignUpStates> {
       required String nationalId,
       required String cardHolderName,
       required String cardPassword,
+      required String password,
       required String image}) {
     UserModel userModel = UserModel(
+      password: password,
         name: name,
         email: email,
         image: image,

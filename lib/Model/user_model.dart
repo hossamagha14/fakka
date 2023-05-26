@@ -8,6 +8,7 @@ class UserModel {
   String? email;
   String? image;
   String? creditCardNumber;
+  String? password;
   String? cardPassword;
   String? expiryDate;
   String? address;
@@ -28,6 +29,7 @@ class UserModel {
   UserModel(
       {required this.name,
       required this.email,
+      required this.password,
       required this.image,
       required this.isMale,
       required this.isVendor,
@@ -45,6 +47,7 @@ class UserModel {
     email = json['email'];
     money = json['money'];
     points = json['points'];
+    password = json['password'];
     moneySpentThisMonth = json['Money spent this month'];
     isVendor = json['isVendor'];
     birthday = json['birthday'];
@@ -73,6 +76,7 @@ class UserModel {
       'money': money,
       'image': image,
       'points': points,
+      'password': password,
       'Money spent this month': moneySpentThisMonth,
       'birthday': birthday,
       'nationalId': nationalId,

@@ -34,10 +34,16 @@ class CircleButton extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+          SizedBox(
+            width: MediaQuery.of(context).size.width*0.2,
+            height: MediaQuery.of(context).size.height*0.02,
+            child: FittedBox(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+              ),
+            ),
           )
         ],
       ),

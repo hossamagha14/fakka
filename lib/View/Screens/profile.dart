@@ -162,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${myCubit.userModel!.moneySpentThisMonth} from 100',
+                                  '${myCubit.userModel!.moneySpentThisMonth} from 1',
                                   style: const TextStyle(
                                       fontSize: 21,
                                       fontWeight: FontWeight.w400),
@@ -184,7 +184,7 @@ class ProfileScreen extends StatelessWidget {
                                         size: 11,
                                         animatedDuration:
                                             const Duration(microseconds: 500),
-                                        maxValue: 3,
+                                        maxValue: 1,
                                         progressColor: mainColor,
                                         backgroundColor:
                                             const Color(0xFFADA9A9),
@@ -220,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
                                                       Lottie.asset(
                                                           'assets/animation/target.json'),
                                                       const Text(
-                                                        'Achieve your monthly target by sending money to other FAKKA users, when you achieve the monthly target you are rewared with points that can be used as a discount in stores and restraunts or even as cash back.',
+                                                        'Achieve your target by sending money to other FAKKA users, when you achieve the target you are rewared with points that can be used as cash back.',
                                                         style: TextStyle(
                                                             color:
                                                                 Colors.black87),

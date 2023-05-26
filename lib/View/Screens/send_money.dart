@@ -43,7 +43,10 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: InkWell(
-            onTap: () => Navigator.pop(context),
+            onTap: () {
+              FocusScope.of(context).unfocus();
+              Navigator.pop(context);
+            },
             child: const Icon(
               Icons.arrow_back,
               color: Colors.white,
@@ -133,7 +136,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                         thickness: 0.8,
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 25, 0, 150),
+                        padding: const EdgeInsets.fromLTRB(0, 25, 0, 110),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: Padding(
