@@ -7,6 +7,7 @@ import 'package:fakka/View/Screens/add_money.dart';
 import 'package:fakka/View/Screens/bills.dart';
 import 'package:fakka/View/Screens/notifications.dart';
 import 'package:fakka/View/Screens/payment_methos.dart';
+import 'package:fakka/View/Screens/phone_number.dart';
 import 'package:fakka/View/Screens/profile.dart';
 import 'package:fakka/View/Screens/recharge.dart';
 import 'package:fakka/View/Screens/send_money.dart';
@@ -362,20 +363,47 @@ class HomeScreen extends StatelessWidget {
                                                                       20))),
                                                   child: RechargeScreen(
                                                     etisalatFunction: () {
-                                                      myCubit.launch(
-                                                          'https://play.google.com/store/apps/details?id=com.etisalat&hl=en&gl=US');
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PhoneNumberScreen(
+                                                              userName:
+                                                                  'Etisalat',
+                                                            ),
+                                                          ));
                                                     },
                                                     orangeFunction: () {
-                                                      myCubit.launch(
-                                                          'https://play.google.com/store/apps/details?id=com.orange.mobinilandme&hl=en&gl=US');
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PhoneNumberScreen(
+                                                              userName:
+                                                                  'orange ',
+                                                            ),
+                                                          ));
                                                     },
                                                     vodafoneFunction: () {
-                                                      myCubit.launch(
-                                                          'https://play.google.com/store/apps/details?id=com.emeint.android.myservices&hl=en&gl=US');
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PhoneNumberScreen(
+                                                              userName:
+                                                                  'Vodafone ',
+                                                            ),
+                                                          ));
                                                     },
                                                     weFunction: () {
-                                                      myCubit.launch(
-                                                          'https://play.google.com/store/apps/details?id=com.ucare.we&hl=en&gl=US');
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PhoneNumberScreen(
+                                                              userName: 'we',
+                                                            ),
+                                                          ));
                                                     },
                                                   ),
                                                 ),
@@ -425,20 +453,52 @@ class HomeScreen extends StatelessWidget {
                                                                         20))),
                                                     child: DonationScreen(
                                                       heartFunction: () {
-                                                        myCubit.launch(
-                                                            'https://www.myf-egypt.org/donation/?utm_source=google&utm_medium=cpc&utm_campaign=Ebranded&gad=1&gclid=EAIaIQobChMI4envsrmT_wIVCa13Ch14-wvTEAAYASAAEgKhXPD_BwE');
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const SendMoneyScreen(
+                                                                type: 4,
+                                                                userName:
+                                                                    'magdi yacoub heart foundation',
+                                                              ),
+                                                            ));
                                                       },
                                                       darFunction: () {
-                                                        myCubit.launch(
-                                                            'https://dar-alorman.com/donate?gclid=EAIaIQobChMIhpDpo7qT_wIV54JoCR0vQAgEEAAYASAAEgKMB_D_BwE');
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const SendMoneyScreen(
+                                                                type: 4,
+                                                                userName:
+                                                                    'dar el orman',
+                                                              ),
+                                                            ));
                                                       },
                                                       cancerFunction: () {
-                                                        myCubit.launch(
-                                                            'https://give.57357.org');
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const SendMoneyScreen(
+                                                                type: 4,
+                                                                userName:
+                                                                    '57357',
+                                                              ),
+                                                            ));
                                                       },
                                                       resalaFunction: () {
-                                                        myCubit.launch(
-                                                            'https://resala.org/donation-main/');
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const SendMoneyScreen(
+                                                                type: 4,
+                                                                userName:
+                                                                    'resala',
+                                                              ),
+                                                            ));
                                                       },
                                                     )),
                                               ],

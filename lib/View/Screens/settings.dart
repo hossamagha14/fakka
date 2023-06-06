@@ -8,6 +8,8 @@ import 'package:fakka/View/Screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'contact_us.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -42,7 +44,44 @@ class SettingsScreen extends StatelessWidget {
                                   builder: (context) => const AboutUsScreen(),
                                 ));
                           }),
-                      SettingsButton(label: 'Contact us', function: () {}),
+                      SettingsButton(
+                          label: 'Contact us',
+                          function: () {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              elevation: 10,
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (context) => Wrap(
+                                children: [
+                                  Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.45,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20))),
+                                      child: ContactUsScreen(
+                                        facebookFunction: () {
+                                          myCubit.launch(
+                                              'https://www.facebook.com/profile.php?id=100093098662471&mibextid=LQQJ4d');
+                                        },
+                                        instagramFunction: () {
+                                          myCubit.launch(
+                                              'https://instagram.com/fakka.app.egy?igshid=OGQ5ZDc2ODk2ZA==');
+                                        },
+                                        linkedInFunction: () {
+                                          myCubit.launch(
+                                              'https://www.linkedin.com/company/fakka-app-egy/about/?viewAsMember=true');
+                                        },
+                                      )),
+                                ],
+                              ),
+                            );
+                          }),
                       SettingsButton(
                           label: 'Change password',
                           function: () {

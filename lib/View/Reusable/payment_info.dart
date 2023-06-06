@@ -28,9 +28,13 @@ class PaymentInfo extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              username,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            SizedBox(
+              width: MediaQuery.of(context).size.width*0.5,
+              child: Text(
+                username,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const SizedBox(
               height: 7,

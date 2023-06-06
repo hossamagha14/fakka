@@ -30,8 +30,10 @@ class SignInScreen extends StatelessWidget {
                     builder: (context) => const BottomNavBarScreen(),
                   ),
                   (route) => false);
-            }else if(state is SignInFailState){
-              errorToast(message: 'Please check the email and password and try again.');
+            } else if (state is SignInFailState) {
+              errorToast(
+                  message:
+                      'Please check the email and password and try again.');
             }
           },
           builder: (context, state) {
@@ -40,15 +42,16 @@ class SignInScreen extends StatelessWidget {
                 child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
+                height: MediaQuery.of(context).size.height,
                 child: Padding(
-                  padding: horizontalPadding(context,top: 0,bottom: 0),
+                  padding: horizontalPadding(context, top: 0, bottom: 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Center(
+                      Center(
                           child: Image(
-                        image: AssetImage('assets/images/fakka.png'),
+                        image: const AssetImage('assets/images/fakka.png'),
+                        width: MediaQuery.of(context).size.width * 0.7,
                       )),
                       const SizedBox(height: 40),
                       const Text('Sign in',
