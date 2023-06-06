@@ -224,7 +224,7 @@ class HomeScreen extends StatelessWidget {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .height *
-                                                            0.35,
+                                                            0.6,
                                                     width:
                                                         MediaQuery.of(context)
                                                             .size
@@ -240,6 +240,22 @@ class HomeScreen extends StatelessWidget {
                                                                     .circular(
                                                                         20))),
                                                     child: PaymentMethodsScreen(
+                                                      etisalatFunction: () {
+                                                        myCubit.launch(
+                                                            'https://play.google.com/store/apps/details?id=com.etisalat.flous&hl=en&gl=US');
+                                                      },
+                                                      orangeFunction: () {
+                                                        myCubit.launch(
+                                                            'https://play.google.com/store/apps/details?id=com.orange.eg.money&hl=en&gl=US');
+                                                      },
+                                                      vodafoneFunction: () {
+                                                        myCubit.launch(
+                                                            'https://play.google.com/store/apps/details?id=com.emeint.android.myservices&hl=en&gl=US');
+                                                      },
+                                                      weFunction: () {
+                                                        myCubit.launch(
+                                                            'https://play.google.com/store/apps/details?id=com.TE.WEWallet&hl=en&gl=US');
+                                                      },
                                                       function: () {
                                                         myCubit.scanQrCode(
                                                             context);
