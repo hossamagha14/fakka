@@ -1,12 +1,11 @@
 import 'package:fakka/View%20Model/Bottom%20navigation%20bar/bottom_nav_bar_cubit.dart';
 import 'package:fakka/View%20Model/Sign%20up/sign_up_cubit.dart';
 import 'package:fakka/View/Reusable/colors_paddings.dart';
+import 'package:fakka/View/Screens/bottom_nav_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'View Model/database/cache_helpher.dart';
-import 'View/Screens/on_boarding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
                     color: mainColor,
                     fontSize: 25,
                     fontWeight: FontWeight.bold))),
-        home: OnBoardingScreen(),
+        home: const BottomNavBarScreen(),
       ),
     );
   }
