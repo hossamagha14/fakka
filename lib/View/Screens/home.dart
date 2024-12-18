@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.675,
+                        height: MediaQuery.of(context).size.height * 0.66,
                         child: RefreshIndicator(
                           color: mainColor,
                           onRefresh: () async {

@@ -92,6 +92,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
           image: image,
           cardHolderName: cardHolderName);
     }).catchError((onError) {
+      print(onError.toString());
       emit(SignUpFailState());
     });
   }
